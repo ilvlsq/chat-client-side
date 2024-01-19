@@ -3,7 +3,7 @@ import SendButton from "./SendButtong";
 
 export default function MessageInput() {
   return (
-    <div className="w-full grid grid-cols-12 gap-4">
+    <div className="grid grid-cols-7 justify-items-center border-t-1 border-default-400">
       <Textarea
         minRows={1}
         variant="underlined"

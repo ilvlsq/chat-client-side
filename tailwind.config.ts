@@ -11,6 +11,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      // maxHeight: {
+      //   "128": "50rem",
+      // },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
