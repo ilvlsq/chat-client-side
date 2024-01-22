@@ -2,22 +2,30 @@
 
 import { ScrollShadow, Textarea } from "@nextui-org/react";
 import React from "react";
-import InterlocutorMessage from "./InterlocutorMessage";
+import Message from "./Message";
 import SendButton from "./SendButton";
 
 export default function Chat() {
-  const [value, setValue] = React.useState("");
-  console.log(value);
+  const [message, setMessage] = React.useState("");
+  const [messages, setMessages] = React.useState([]);
+  const addMessage = () => {
+    if (message.length > 0) {
+      const newMessage = { message, user: "other" };
+      setMessages([...messages, newMessage]);
+      setMessage("");
+    }
+  };
+
   return (
     <>
       <ScrollShadow hideScrollBar>
         <div className="flex flex-col overflow-auto">
-          <InterlocutorMessage message={value} />
-          <InterlocutorMessage message={value} />
-          <InterlocutorMessage message={value} />
-          <InterlocutorMessage message={value} />
-          <InterlocutorMessage message={value} />
-          <InterlocutorMessage message={value} />
+          {messages.map((message, index) => (
+            <Message
+              key={index}
+              message={`${message.message} ${message.user}`}
+            />
+          ))}
         </div>
       </ScrollShadow>
       <div className="grid grid-cols-7 justify-items-center border-t-1 border-default-400">
@@ -26,10 +34,10 @@ export default function Chat() {
           variant="underlined"
           placeholder="Message"
           className="col-span-12 md:col-span-6 mb-6 md:mb-0"
-          value={value}
-          onValueChange={setValue}
+          value={message}
+          onValueChange={setMessage}
         />
-        <SendButton />
+        <SendButton addMessage={addMessage} />
       </div>
     </>
   );

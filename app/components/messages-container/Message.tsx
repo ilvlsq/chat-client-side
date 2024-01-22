@@ -1,6 +1,6 @@
 import { Avatar } from "@nextui-org/react";
 
-export default function InterlocutorMessage({ message }) {
+export default function Message({ message }: { message: string }) {
   return (
     <div className="flex flex-row my-2">
       <Avatar
@@ -10,7 +10,7 @@ export default function InterlocutorMessage({ message }) {
         color="success"
         src="https://i.pravatar.cc/150?u=a04258114e29026302d"
       />
-      <div className=" self-start max-w-[600px] py-3 px-4 mt-3 ml-4 border-0.5 bg-red-700 rounded-lg overflow-auto">
+      <div className="self-start max-w-[600px] py-3 px-4 mt-3 ml-4 border-0.5 bg-red-700 rounded-lg overflow-auto">
         {message}
       </div>
     </div>

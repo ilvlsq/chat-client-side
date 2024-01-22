@@ -1,6 +1,6 @@
 import { Button } from "@nextui-org/react";
 
-export default function SendButton() {
+export default function SendButton({ addMessage }: { addMessage: () => void }) {
   return (
     <Button
       className=" h-15"
@@ -8,6 +8,7 @@ export default function SendButton() {
       color="secondary"
       variant="ghost"
       size="lg"
+      onClick={addMessage}
     >
       Send
     </Button>
