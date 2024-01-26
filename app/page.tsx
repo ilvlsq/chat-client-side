@@ -1,11 +1,5 @@
-"use client";
-import { NextUIProvider } from "@nextui-org/react";
-import ChatContainer from "./components/messages-container/ChatContainer";
+import ChatServerWrapper from "./components/messages-container/ChatServerWrapper";
 
 export default function Home() {
-  return (
-    <NextUIProvider>
-      <ChatContainer />
-    </NextUIProvider>
-  );
+  return <ChatServerWrapper />;
 }
