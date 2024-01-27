@@ -1,17 +1,22 @@
-import { userData } from "three/examples/jsm/nodes/Nodes.js";
+import { use } from "react";
 import Chat from "./Chat";
 import { currentUser } from "@clerk/nextjs";
 
+async function getCurrentUser() {
+  return await currentUser();
+}
+
 export default function ChatServerWrapper() {
+  const user = use(getCurrentUser());
+
   return (
     <>
-      {/* {" "}
-      {user?.username && user.imageUrl && (
-        <Chat userName={user.username} userImage={user.imageUrl} />
-      )} */}
-      {/* {user.username && user.imageUrl && (
-        <Chat userName={user.username} userImage={user.imageUrl} />
-      )} */}
+      {user?.firstName && (
+        <Chat
+          userName={user?.username || user.firstName}
+          userImage={user?.imageUrl}
+        />
+      )}
     </>
   );
 }

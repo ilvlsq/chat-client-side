@@ -9,11 +9,9 @@ import SendButton from "./SendButton";
 type Message = { currentMessage: string; userName: string };
 type Props = { userName: string; userImage: string };
 
-export default function Chat() {
+export default function Chat({ userName, userImage }: Props) {
   const [currentMessage, setCurrentMessage] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
-  const userName = "yretrte";
-  const userImage = "https://i.pravatar.cc/150?u=a042581f4e29026024d";
 
   const addMessage = () => {
     if (currentMessage.length > 0) {
@@ -25,7 +23,11 @@ export default function Chat() {
 
   return (
     <NextUIProvider>
-      <div className="mx-auto ml-28 mt-5 min-h-[500px] max-h-[500px] max-w-3xl flex flex-col justify-between border-default-300 rounded-md border-2">
+      <div
+        className=" mt-5 min-h-[500px] max-h-[500px] max-w-3xl
+        flex flex-col justify-between 
+        border-default-300 rounded-md border-2"
+      >
         <ScrollShadow hideScrollBar>
           <div className="flex flex-col overflow-auto">
             {messages.map((message: Message, index: number) => (
