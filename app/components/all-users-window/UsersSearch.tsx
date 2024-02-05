@@ -12,7 +12,7 @@ export default function UsersSearch({ allUsers }: any) {
   return (
     <Autocomplete
       classNames={{
-        base: "max-w-xs",
+        base: "max-w-[250px] mt-4",
         listboxWrapper: "max-h-[320px]",
         selectorButton: "text-default-500",
       }}
@@ -39,8 +39,8 @@ export default function UsersSearch({ allUsers }: any) {
           ],
         },
       }}
-      aria-label="Select an employee"
-      placeholder="Enter employee name"
+      aria-label="Select an user"
+      placeholder="Enter name for search"
       popoverProps={{
         offset: 10,
         classNames: {
@@ -48,7 +48,6 @@ export default function UsersSearch({ allUsers }: any) {
           content: "p-1 border-small border-default-100 bg-background",
         },
       }}
-      startContent={"*"}
       radius="full"
       variant="bordered"
     >

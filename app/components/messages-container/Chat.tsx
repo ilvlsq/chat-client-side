@@ -1,10 +1,9 @@
 "use client";
 
 import { NextUIProvider } from "@nextui-org/react";
-import { ScrollShadow, Textarea } from "@nextui-org/react";
+import { ScrollShadow, Textarea, Button } from "@nextui-org/react";
 import { useState } from "react";
 import Message from "./Message";
-import SendButton from "./SendButton";
 
 type Message = { currentMessage: string; userName: string };
 type Props = { userName: string; userImage: string };
@@ -12,14 +11,36 @@ type Props = { userName: string; userImage: string };
 export default function Chat({ userName, userImage }: Props) {
   const [currentMessage, setCurrentMessage] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
+  const [isLoading, setLoading] = useState(false);
 
-  const addMessage = () => {
+  async function addMessage() {
     if (currentMessage.length > 0) {
-      const newMessage: Message = { currentMessage, userName };
-      setMessages([...messages, newMessage]);
       setCurrentMessage("");
+      setLoading(true);
+
+      const newMessage: Message = { currentMessage, userName };
+
+      const request = await fetch("http://localhost:5000/api", {
+        method: "POST",
+        body: JSON.stringify({ currentMessage }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (request.ok) {
+        const data = await request.json();
+
+        const newMessageFromServer: Message = {
+          currentMessage: data,
+          userName: "AI",
+        };
+
+        setMessages([...messages, newMessage, newMessageFromServer]);
+        setLoading(false);
+      }
     }
-  };
+  }
 
   return (
     <NextUIProvider>
@@ -39,16 +60,33 @@ export default function Chat({ userName, userImage }: Props) {
             ))}
           </div>
         </ScrollShadow>
-        <div className="grid grid-cols-7 justify-items-center border-t-1 border-default-400">
+        <div className="grid grid-cols-7 justify-items-center border-t-1 rounded-md	 border-default-400">
           <Textarea
             minRows={1}
             variant="underlined"
             placeholder="Message"
             className="col-span-12 md:col-span-6 mb-6 md:mb-0"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                addMessage();
+              }
+            }}
             value={currentMessage}
             onValueChange={setCurrentMessage}
+            isDisabled={isLoading}
           />
-          <SendButton addMessage={addMessage} />
+          <Button
+            className="max-w-[44px] h-15"
+            radius="sm"
+            color="secondary"
+            variant="ghost"
+            size="lg"
+            onClick={addMessage}
+            isLoading={isLoading}
+          >
+            Send
+          </Button>
         </div>
       </div>
     </NextUIProvider>
