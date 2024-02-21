@@ -2,7 +2,7 @@
 
 import { NextUIProvider } from "@nextui-org/react";
 import { ScrollShadow, Textarea, Button } from "@nextui-org/react";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Message from "./Message";
 
 type Message = { currentMessage: string; userName: string; role?: string };
@@ -12,16 +12,23 @@ export default function Chat({ userName, userImage }: Props) {
   const [currentMessage, setCurrentMessage] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setLoading] = useState(false);
-  var role = "user";
+  const messagesEndRef = useRef<null | HTMLDivElement>(null);
+
+  function scrollToBottom() {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   function addMessage() {
     if (currentMessage.length > 0) {
       setCurrentMessage("");
       setLoading(true);
 
-      const newMessage: Message = { currentMessage, userName, role };
+      const newMessage: Message = { currentMessage, userName, role: "user" };
       setMessages((prevMessages) => [...prevMessages, newMessage]);
-
       requestToLLM([...messages, newMessage]);
     }
   }
@@ -67,6 +74,7 @@ export default function Chat({ userName, userImage }: Props) {
               />
             ))}
           </div>
+          <div ref={messagesEndRef} />
         </ScrollShadow>
         <div className="grid grid-cols-7 justify-items-center border-t-1 rounded-md	 border-default-400">
           <Textarea

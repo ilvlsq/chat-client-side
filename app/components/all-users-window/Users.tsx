@@ -1,6 +1,12 @@
 "use client";
 
-import { Avatar, NextUIProvider } from "@nextui-org/react";
+import {
+  Avatar,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  image,
+} from "@nextui-org/react";
 import UsersSearch from "./UsersSearch";
 
 export default function Users({ allUsers }: any) {
@@ -16,7 +22,18 @@ export default function Users({ allUsers }: any) {
       >
         {allUsers.map(
           (user: { imageUrl: string | undefined }, index: number) => (
-            <Avatar key={index} src={user.imageUrl} />
+            <Popover showArrow placement="bottom">
+              <PopoverTrigger>
+                <Avatar
+                  key={index}
+                  src={user.imageUrl}
+                  className="hover:border-primary-700 border-2 border-transparent ransition-transform"
+                />
+              </PopoverTrigger>
+              <PopoverContent className="p-1">
+                <span>{user.imageUrl}</span>
+              </PopoverContent>
+            </Popover>
           )
         )}
       </div>
