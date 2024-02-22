@@ -1,4 +1,6 @@
 import { Avatar } from "@nextui-org/react";
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 type Props = {
   message: string;
@@ -36,7 +38,7 @@ export default function Message({
         rounded-lg
         overflow-auto`}
       >
-        {message}
+        <Markdown remarkPlugins={[remarkGfm]}>{message}</Markdown>
       </div>
     </div>
   );
