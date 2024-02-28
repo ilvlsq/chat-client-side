@@ -1,4 +1,4 @@
-import { clerkClient, currentUser } from "@clerk/nextjs";
+import { clerkClient } from "@clerk/nextjs";
 import { use } from "react";
 import Users from "./Users";
 

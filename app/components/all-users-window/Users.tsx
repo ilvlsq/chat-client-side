@@ -5,12 +5,13 @@ import {
   Popover,
   PopoverTrigger,
   PopoverContent,
-  image,
 } from "@nextui-org/react";
 import UsersSearch from "./UsersSearch";
+import UserCard from "./UserCard";
 
 export default function Users({ allUsers }: any) {
   allUsers = JSON.parse(allUsers);
+
   return (
     <div className="flex flex-col">
       <UsersSearch allUsers={allUsers} />
@@ -20,22 +21,20 @@ export default function Users({ allUsers }: any) {
           border-default-300 rounded-md border-2
           overflow-auto"
       >
-        {allUsers.map(
-          (user: { imageUrl: string | undefined }, index: number) => (
-            <Popover showArrow placement="bottom">
-              <PopoverTrigger>
-                <Avatar
-                  key={index}
-                  src={user.imageUrl}
-                  className="hover:border-primary-700 border-2 border-transparent ransition-transform"
-                />
-              </PopoverTrigger>
-              <PopoverContent className="p-1">
-                <span>{user.imageUrl}</span>
-              </PopoverContent>
-            </Popover>
-          )
-        )}
+        {allUsers.map((user: { imageUrl: string }, index: number) => (
+          <Popover showArrow placement="bottom">
+            <PopoverTrigger>
+              <Avatar
+                key={index}
+                src={user.imageUrl}
+                className="hover:border-primary-700 border-2 border-transparent ransition-transform"
+              />
+            </PopoverTrigger>
+            <PopoverContent className="p-1">
+              <UserCard userImage={user.imageUrl} />
+            </PopoverContent>
+          </Popover>
+        ))}
       </div>
     </div>
   );

@@ -7,14 +7,18 @@ async function getCurrentUser() {
 }
 
 export default function ChatServerWrapper() {
-  const user = use(getCurrentUser());
+  const currentUser = use(getCurrentUser());
 
   return (
     <>
-      {user?.firstName && (
+      {currentUser && (
         <Chat
-          userName={user?.username || user.firstName}
-          userImage={user?.imageUrl}
+          userName={
+            currentUser?.firstName ||
+            currentUser.lastName ||
+            currentUser.username
+          }
+          userImage={currentUser?.imageUrl}
         />
       )}
     </>
