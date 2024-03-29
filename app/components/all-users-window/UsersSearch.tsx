@@ -8,8 +8,19 @@ import {
   Button,
 } from "@nextui-org/react";
 
-export default function UsersSearch({ allUsers }: any) {
-  // TO DO
+type Props = {
+  users: Iterable<eachUser>;
+};
+
+type eachUser = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  username: string;
+  imageUrl: string;
+};
+
+export default function UsersSearch({ users }: Props) {
   return (
     <Autocomplete
       classNames={{
@@ -17,7 +28,7 @@ export default function UsersSearch({ allUsers }: any) {
         listboxWrapper: "max-h-[320px]",
         selectorButton: "text-default-500",
       }}
-      defaultItems={allUsers}
+      defaultItems={users}
       inputProps={{
         classNames: {
           input: "ml-1",
@@ -52,8 +63,11 @@ export default function UsersSearch({ allUsers }: any) {
       radius="full"
       variant="bordered"
     >
-      {(item: any) => (
-        <AutocompleteItem key={item.id} textValue={item.id}>
+      {(item: eachUser) => (
+        <AutocompleteItem
+          key={item.id}
+          textValue={item.firstName || item.lastName || item.username}
+        >
           <div className="flex justify-between items-center">
             <div className="flex gap-2 items-center">
               <Avatar
@@ -63,7 +77,9 @@ export default function UsersSearch({ allUsers }: any) {
                 src={item.imageUrl}
               />
               <div className="flex flex-col">
-                <span className="text-small">{item.createdAt}</span>
+                <span className="text-small">
+                  {item.firstName || item.lastName || item.username}
+                </span>
               </div>
             </div>
             <Button

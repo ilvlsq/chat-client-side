@@ -11,11 +11,11 @@ async function getAllUses() {
 
 export default function UsersServerWrapper() {
   const allUsers = use(getAllUses());
-  let userObj = JSON.stringify(allUsers);
+  let usersObj = JSON.stringify(allUsers);
 
   return (
     <>
-      <Users allUsers={userObj} />
+      <Users allUsers={usersObj} />
     </>
   );
 }

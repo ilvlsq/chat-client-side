@@ -1,4 +1,4 @@
-import ChatServerWrapper from "./components/messages-container/ChatServerWrapper";
+import ChatServerWrapper from "./components/chat-container/ChatServerWrapper";
 import UsersServerWrapper from "./components/all-users-window/UsersServerWrepper";
 
 import InterlocutorInputPlaceHolder from "./components/interlocutor-input/InterlocutorInput(Placeholder)";
